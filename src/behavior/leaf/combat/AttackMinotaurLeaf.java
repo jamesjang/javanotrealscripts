@@ -23,18 +23,17 @@ public class AttackMinotaurLeaf extends Leaf {
         Sleep.sleep(Antiban.getAntiBan().performAntiban());
 
 
-
         NPC monster = NPCs.closest(m-> MinotaursConfig.getMinoConfig().MINOTAUR.equalsIgnoreCase(m.getName())
                 && m.canReach()
                 && m.canAttack()
                 && MinotaursConfig.getMinoConfig().SECCURITY_STRONGHOLD.contains(m.getTile()));
 
         if (monster != null) {
-            monster.interact("Attack");
+            if ( monster.interact("Attack")) {
+                Sleep.sleepUntil(() -> Players.getLocal().isInCombat(), 3000, 200);
 
-            Sleep.sleepUntil(()-> Players.getLocal().isInCombat(), 3000, 200);
-
-            return 1000;
+                return 1000;
+            }
         }
 
         return 500;

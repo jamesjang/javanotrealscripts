@@ -18,17 +18,14 @@ public class WalkToBankLeaf extends Leaf {
 
     @Override
     public int onLoop() {
-        if (!MinotaursConfig.getMinoConfig().BANK_AREA.contains(Players.getLocal())) {
-            if (Walking.shouldWalk()) {
-                Sleep.sleep(Antiban.getAntiBan().performAntiban());
+        if (Walking.shouldWalk(6)) {
+            Sleep.sleep(Antiban.getAntiBan().performAntiban());
 
+            Walking.walk(MinotaursConfig.getMinoConfig().BANK_AREA.getRandomTile());
 
-                Walking.walk(MinotaursConfig.getMinoConfig().BANK_AREA.getRandomTile());
-
-                Sleep.sleepUntil(() -> MinotaursConfig.getMinoConfig().BANK_AREA.contains(
-                        Players.getLocal().getTile()
-                ), 500, 100);
-            }
+            Sleep.sleepUntil(() -> MinotaursConfig.getMinoConfig().BANK_AREA.contains(
+                    Players.getLocal().getTile()
+            ), 500, 100);
         }
         return 144;
     }

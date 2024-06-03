@@ -14,13 +14,15 @@ public class MinotaursConfig {
     public int EAT_PERCENTAGE_BASE = 50;
     public int EAT_PERCENTAGE_VARIANCE = 7;
     private int EAT_PERCENTAGE;
+    public int CRITICAL_HEALTH_PERCENTAGE = 20;
+    public String SKILL_TRACKING_STRING;
 
     public String MINOTAUR = "Minotaur";
     public Area BANK_AREA = new Area(3092, 3497, 3097, 3494);
     public Area SECCURITY_STRONGHOLD = new Area(1870, 5221, 1882, 5209);
             //new Area(3074, 3422, 3085, 3417);
 
-    public CombatStyle AttackStyle;
+    public CombatStyle AttackStyle = CombatStyle.STRENGTH;
 
     public void setEatPercentageBase(int v) { this.EAT_PERCENTAGE_BASE = v;}
     public void setEatPercentageVariance(int v) { this.EAT_PERCENTAGE_VARIANCE = v;}
@@ -31,14 +33,17 @@ public class MinotaursConfig {
     public void setAttackStyle(String v) {
         if (v.equalsIgnoreCase("Attack")) {
             AttackStyle = CombatStyle.ATTACK;
+            SKILL_TRACKING_STRING = "Attack";
             return;
         }
         if (v.equalsIgnoreCase("Strength")) {
             AttackStyle = CombatStyle.STRENGTH;
+            SKILL_TRACKING_STRING = "Strength";
             return;
         }
         if (v.equalsIgnoreCase("Defence")) {
             AttackStyle = CombatStyle.DEFENCE;
+            SKILL_TRACKING_STRING = "Defence";
         }
     }
 }

@@ -19,11 +19,15 @@ public class EatLeaf extends Leaf {
 
     @Override
     public int onLoop() {
-        Inventory.interact(MinotaursConfig.getMinoConfig().FOOD_SOURCE, "Eat");
+        int initialEmptySlots = Inventory.getEmptySlots();
 
-        Sleep.sleepUntil(() -> Players.getLocal().isAnimating(), 3000);
+        if (Inventory.interact(MinotaursConfig.getMinoConfig().FOOD_SOURCE, "Eat")) {
+            Sleep.sleepUntil(() -> Inventory.getEmptySlots() > initialEmptySlots ||
+                    Players.getLocal().getHealthPercent() <= MinotaursConfig.getMinoConfig().CRITICAL_HEALTH_PERCENTAGE
+                    , 3000);
 
-        MinotaursConfig.getMinoConfig().SetEatPercentage(GetEatPercentage());
+            MinotaursConfig.getMinoConfig().SetEatPercentage(GetEatPercentage());
+        }
 
         return 500;
     }

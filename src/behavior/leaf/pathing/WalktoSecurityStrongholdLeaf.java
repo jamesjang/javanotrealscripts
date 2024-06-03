@@ -20,19 +20,17 @@ public class WalktoSecurityStrongholdLeaf extends Leaf {
 
     @Override
     public int onLoop() {
-        if (!MinotaursConfig.getMinoConfig().SECCURITY_STRONGHOLD.contains(Players.getLocal())) {
-            if (Walking.shouldWalk()) {
-                Sleep.sleep(Antiban.getAntiBan().performAntiban());
+        if (Walking.shouldWalk(6)) {
+            Sleep.sleep(Antiban.getAntiBan().performAntiban());
 
+            Walking.walk(MinotaursConfig.getMinoConfig().SECCURITY_STRONGHOLD.getRandomTile());
 
-                Walking.walk(MinotaursConfig.getMinoConfig().SECCURITY_STRONGHOLD.getRandomTile());
+            Sleep.sleepUntil(() -> MinotaursConfig.getMinoConfig().SECCURITY_STRONGHOLD.contains(
+                    Players.getLocal().getTile()
+            ), 500, 100);
 
-                Sleep.sleepUntil(() -> MinotaursConfig.getMinoConfig().SECCURITY_STRONGHOLD.contains(
-                        Players.getLocal().getTile()
-                ), 500, 100);
-
-            }
         }
+
         return 144;
     }
 }
